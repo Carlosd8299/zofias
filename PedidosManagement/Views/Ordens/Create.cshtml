@@ -1,0 +1,101 @@
+﻿@using PedidosManagement.Model
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Tuple<Orden, OrdenDetalle>
+@{
+    var time = DateTime.Now.Date.ToString();
+}
+<div class="container">
+    <form asp-action="Create" asp-controller="Ordens" method="post" id="SetEncabezado">
+        <div class="row">
+            <input type="hidden" asp-for="Item1.ID">
+            @*@Html.TextBoxFor(model => model.attendanceWeekOff, new { @Value = (Model == null) ? "WO" : Model.attendanceWeekOff.ToString() })*@
+            <div class="form-group col-md-4">
+                <label>Clientes</label>
+                <select class="form-control" asp-for="Item1.IdCliente" asp-items="@((IEnumerable
+                <SelectListItem>) new SelectList(ViewBag.ListaClientes,"ID", "Nombre"))"></select>
+                <span asp-validation-for="Item1.IdCliente"></span>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>Fecha para entregar el pedido</label>
+                <input type="date" class="form-control" asp-for="Item1.FechaOrden" hint="Fecha" />
+                <span asp-validation-for="Item1.FechaOrden"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label>Fecha de toma del pedido</label>
+                <input type="text" class="form-control" disabled="disabled" value="@time" />
+            </div>
+        </div>
+    </form>
+    <hr />
+    <!-- EN ESTA PARTE ESTOY COLOCANDO LA SECCION DE DETALLE-->
+    <form asp-action="SetDetalle" asp-controller="Ordens" method="post" id="SetDetalle">
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label>Producto</label>
+                <select class="form-control" asp-for="Item2.IdProducto" asp-items="@((IEnumerable
+        <SelectListItem>) new SelectList(ViewBag.listaProductos,"ID", "Nombre"))"></select>
+            </div>
+            <div class="form-group col-md-2">
+                <label>Cantidad</label>
+                <input type="number" class="form-control" asp-for="Item2.Cantidad" value="1" />
+                <span asp-validation-for="Item2.Cantidad" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-2">
+                <label>Precio</label>
+                <input type="number" class="form-control" asp-for="Item2.PrecioProducto" />
+                <span asp-validation-for="Item2.PrecioProducto" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-2">
+                <label>Color</label>
+                <input type="text" class="form-control" asp-for="Item2.Color" />
+                <span asp-validation-for="Item2.Color" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-2">
+                <label>Talla</label>
+                <input type="text" class="form-control" asp-for="Item2.Talla" />
+                <span asp-validation-for="Item2.Talla" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Item2.IdOrden" class="form-control" />
+            </div>
+            @*         <div class="form-group">
+                <input type="hidden" asp-for="Item2.FechaCreacionAuto" class="form-control" />
+                </div>
+                <div class="form-group">
+                <input type="hidden" asp-for="Item2.ID" class="form-control" />
+                </div>*@
+        </div>
+        <div class="row">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+    </form>
+
+    <div class="row">
+        <table class="table table-condensed table-bordered" id="tbl-detalle-compra">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>IVA</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (OrdenDetalle detalle in ViewBag.DetalleCompra)
+                {
+                    <tr>
+                        <td>@detalle.Producto.Nombre</td>
+                        <td>@detalle.Producto.Descripcion</td>
+                        <td>@detalle.PrecioProducto</td>
+                        <td>@detalle.Cantidad</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+﻿@model PedidosManagement.Models.OrdenDetalle
+
+@{
+    ViewData["Title"] = "Edit";
+    
+}
+
+<h1>Edit</h1>
+
+<h4>OrdenDetalle</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                @* <label asp-for="IdOrden" class="control-label"></label>*@
+                <select asp-for="IdOrden" class="form-control" asp-items="ViewBag.IdOrden" hidden="true"></select>
+                <span asp-validation-for="IdOrden" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label>Nombre del producto</label>
+                <label>@ViewBag.IdProducto</label>*@
+                <select asp-for="IdProducto" class="form-control" asp-items="ViewBag.IdProducto" hidden="true"></select>
+                <span asp-validation-for="IdProducto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cantidad" class="control-label"></label>
+                <input asp-for="Cantidad" class="form-control" />
+                <span asp-validation-for="Cantidad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrecioProducto" class="control-label"></label>
+                <input asp-for="PrecioProducto" class="form-control" />
+                <span asp-validation-for="PrecioProducto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Color" class="control-label"></label>
+                <input asp-for="Color" class="form-control" />
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Talla" class="control-label"></label>
+                <input asp-for="Talla" class="form-control" />
+                <span asp-validation-for="Talla" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label>Fecha de pedido</label>*@
+                <input asp-for="FechaCreacionAuto" class="form-control" hidden="true" />
+                <span asp-validation-for="FechaCreacionAuto" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Estado" hidden="true" /> @*@Html.DisplayNameFor(model => model.Estado)*@
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@Html.ActionLink( linkText:"Regresar",actionName:"Details",controllerName:"Ordens",routeValues: new{ id = ViewBag.IdOrdenDetalle}, htmlAttributes: new{ @class= "btn btn-primary"})

@@ -1,0 +1,66 @@
+﻿@model IEnumerable<PedidosManagement.Models.OrdenDetalle>
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Numero de encargo
+            </th>
+            <th>
+                Producto
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioProducto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Talla)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Producto.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cantidad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrecioProducto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Talla)
+                </td>
+                <td>
+                    <a asp-controller="OrdenDetalles" asp-action="Edit" asp-route-id="@item.ID">Editar</a> |
+ @*                   <a asp-controller="OrdenDetalles" asp-action="Details" asp-route-id="@item.ID">Detale</a> |*@
+                    <a asp-controller="OrdenDetalles" asp-action="Delete" asp-route-id="@item.ID">Eliminar</a>  
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

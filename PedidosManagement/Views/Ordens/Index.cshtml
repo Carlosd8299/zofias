@@ -1,0 +1,88 @@
+﻿@using PedidosManagement.Models.ViewModel
+@model IEnumerable<PedidosManagement.Model.Orden>
+
+@{
+    ViewData["Title"] = "Index";
+    var lista = (List<VMProductosXPedido>)ViewBag.ListaProductosPedido;
+}
+
+<h1>Lista de pedidos</h1>
+
+<p>
+    <a asp-action="Create">Crear nuevo pedido</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Numero unico de orden
+            </th>
+            <th>
+                Cliente
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente.NickName)
+            </th>
+            <th>
+                Productos
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente.DireccionEntrega)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaOrden)
+            </th>
+            <th>
+                Fecha Recepcion de pedido
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoEntrega)
+            </th>
+
+            <th>
+                Opciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente.NickName)
+                </td>
+                <td>
+                    @lista.Find(x=>x.IdPedido == item.ID).NombresDeProductos
+                <td>
+                        @Html.DisplayFor(modelItem => item.Cliente.DireccionEntrega)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.FechaOrden)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.FechaCreacionAuto)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.EstadoEntrega)
+                </td>
+                <td>
+                    <a asp-action="Create" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Detalle</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
